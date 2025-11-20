@@ -1,0 +1,110 @@
+.auth{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.user-icon{
+    position: absolute;
+    top: -50px;
+    left: 40%;
+    padding: 20px 40px;
+    border-radius: 2rem;
+    background-color: var(---bg--color-two);
+}
+
+.user-icon img{
+    width: 4rem;
+}
+
+.auth-main{
+    position: relative;
+    height: 490px;
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4rem;
+    background-color: var(--bg-color);
+}
+/*H2*/
+.login, .register{
+    display: flex;
+    gap: 20px;
+    text-align: center;
+    flex-direction: column;
+}
+
+.login h2, .register h2{
+    font-size: 2.5rem;
+}
+
+/*Forms*/
+
+.auth-form{
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+}
+
+.auth-form-login{
+    display: flex;
+    gap: 30px;
+}
+
+.input-container{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 14px;
+    background-color: white;
+}
+
+.input-container img{
+    width: 2rem;
+}
+
+.input-container input{
+    width: 85%;
+    padding: 10px;
+    border: none;
+}
+
+.auth-form button{
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    width: 450px;
+    padding: 20px;
+    border: none;
+    border-radius: 14px;
+    background-color: rgb(180, 180, 255);
+    transition: .4s ease-in-out;
+}
+
+.auth-form button:hover{
+    background-color: var(---bg--color-two);
+}
+
+/*Botões*/
+.nav-btn{
+    cursor: pointer;
+    font-weight: 800;
+    letter-spacing: 1px;
+    width: 400px;
+    padding: 15px 0;
+    border: none;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    background-color: rgb(225, 225, 255);
+    transition: .4s ease-in-out;   
+}
+
+.nav-btn:hover{
+    background-color: rgb(180, 180, 255);
+    width: 450px;
+}

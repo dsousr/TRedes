@@ -1,0 +1,65 @@
+.home{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-home{
+    height: 600px;
+    width: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 60px;
+    background-color: var(--bg-color);
+    flex-direction: column;
+}
+
+/*Container usuário*/
+.user-infs{
+    position: relative;
+    height: 25%;
+    width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 30px;
+    background-color: rgb(222, 222, 255);
+    flex-direction: column;
+}
+
+.user-infs h2{
+    font-size: 3.5rem;
+}
+
+.user-infs span{
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.user-infs img{
+    position: absolute;
+    width: 5rem;
+    left: 15px;
+}
+
+/*Container das infs*/
+.date-time, .host-name, .id-login{
+    position: relative;
+    font-weight: bold;
+    height: 15%;
+    width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    background-color: rgb(222, 222, 255);
+}
+
+.date-time img, .host-name img, .id-login img{
+    position: absolute;
+    width: 3.5rem;
+    left: 20px;
+}

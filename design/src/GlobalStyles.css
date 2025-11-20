@@ -1,0 +1,24 @@
+*{
+  font-family: Arial;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html, body, #root{
+  height: 100vh;
+  width: 100vw;
+}
+
+button{
+  cursor: pointer;
+}
+
+input:focus{
+  outline: none;
+}
+
+:root{
+  --bg-color: rgb(210, 210, 255);
+  ---bg--color-two: rgb(160, 160, 255);
+}
