@@ -13,6 +13,7 @@ export default function Home() {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
+
     async function loadProfile() {
       try {
         const sessionId = localStorage.getItem("sessionId");
@@ -28,11 +29,15 @@ export default function Home() {
         setProfile(data);
 
       } catch (err) {
-        alert("Erro ao carregar perfil.");
+        console.log("Erro ao carregar perfil.");
       }
     }
 
     loadProfile();
+
+    const interval = setInterval(loadProfile, 3000);
+
+    return () => clearInterval(interval);
   }, []);
 
   if (!profile) return <h2>Carregando...</h2>;
@@ -44,7 +49,7 @@ export default function Home() {
         <div className="user-infs">
           <img src={User} alt="usuário" />
           <h2>{profile.usuario}</h2>
-          <span className="user-id">@{profile.login}</span>
+          <span>@{profile.login}</span>
         </div>
 
         <div className="date-time">

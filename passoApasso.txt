@@ -1,0 +1,73 @@
+Passo 1 – Banco de Dados (MySQL Workbench)
+
+➜ Cole:
+
+CREATE DATABASE trabalho;
+USE trabalho;
+
+CREATE TABLE usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  login VARCHAR(50) UNIQUE NOT NULL,
+  senha_hash VARCHAR(200) NOT NULL,
+  nome VARCHAR(100) NOT NULL
+);
+
+INSERT INTO usuarios (login, senha_hash, nome) VALUES
+('pedro', '$2a$10$sBCHi9i4fa6fC6LJ3SlsDedhFpc4LOPA742zWArrXuTlu/D68blxC', 'Pedro'),
+('admin', '$2a$10$Cx5QUJSdxuF8ZqrG6OJNueoA9aA5gTFjB1TmX0N.Bz3H8jAuqLpdu', 'Administrador'),
+('davi', '$2a$10$8KejgvoTZfXHY6bltqOIS.4Hghnf/TpzhbAPPt9H9NomUOGykgpK2', 'Davi'),
+('nanda', '$2a$10$QR0T3/SaC.2ENM8OvcuqgeVclt6.fpL3btHGZykawxj5b0KSlNHVW', 'Leandra');
+
+SELECT * FROM usuarios;
+
+➜ Confirme se todos os usuários aparecem no SELECT.
+
+Passo 2:
+
+1. execute o bloco de notas como adm
+
+2. siga o seguinte caminho:
+
+  C:\Windows\System32\drivers\etc\
+
+3.altere de "documentos de texto" para "todos os arquivos"
+
+4. abra o arquivo: hosts
+
+5. Copie e coloque na ultima linha:
+
+  127.0.0.1   www.meutrabalho.com.br
+  127.0.0.1   www.meutrabalho.com.br
+  127.0.0.1   www.meutrabalho.com.br
+
+6. Salve.
+
+Passo 3 – Subir os servidores:
+
+Abra 4 terminais e execute em cada um deles os seguintes blocos de código:
+
+➜ Terminal 1 – Server A
+cd serverA
+npm install
+npm run dev
+
+➜ Terminal 2 – Server B
+cd serverB
+npm install
+npm run dev
+
+➜ Terminal 3 – Server C
+cd serverC
+npm install
+npm run dev
+
+➜ Terminal 4 – Frontend (design)
+cd design
+npm install
+npm run build
+npm install -g serve
+serve -s dist -l 80
+
+7. Feche o navegador, abra novamente e acesse:
+
+http://www.meutrabalho.com.br

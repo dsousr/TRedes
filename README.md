@@ -1,85 +1,96 @@
 # Sistema de Autenticação Distribuído com Balanceamento de Carga
 
-## 📌 Descrição do Projeto
+## Descrição do Projeto:
 
-Este projeto implementa um sistema de autenticação distribuído, composto por três servidores backend, um frontend em React, um banco MySQL, um servidor de sessões em Redis, e um DNS configurado com Round-Robin para balanceamento de carga.
+Sistema de autenticação distribuído composto por três servidores backend, frontend em React vite, MySQL, Redis para sessões e DNS com Round-Robin. Demonstra:
 
-O objetivo é demonstrar:
+● Distribuição de carga
 
-Distribuição de carga entre múltiplos servidores;
+● Sessões centralizadas via Redis
 
-Persistência de sessão centralizada com Redis;
+● Hash seguro de senhas (bcrypt)
 
-Armazenamento seguro de senhas com bcrypt;
+● Comunicação entre múltiplos servidores
 
-Comunicação entre frontend e servidores backend distintos;
+● Arquitetura escalável e tolerante a falhas
 
-Arquitetura escalável, estável e resistente a falhas.
+## Tecnologias Utilizadas:
 
-## ⚙️ Tecnologias Utilizadas
-Backend
+### Backend
 
-Node.js + Express
+● Node.js + Express
 
-MySQL (armazenamento de usuários)
+● MySQL
 
-Redis (armazenamento das sessões)
+● Redis
 
-bcryptjs (hash de senhas)
+● bcryptjs
 
-dotenv (configuração .env)
+● dotenv
 
-ioredis (client Redis)
+● ioredis
 
-Frontend
+### Frontend
 
-React + Vite
+● React + Vite
 
-React Router DOM
+● React Router DOM
 
-Fetch API
+● Fetch API
 
-Sistema de fallback automático para os 3 servidores
+● fallback automático entre os 3 backends
 
-Infraestrutura
+### Infraestrutura
 
-Servidor DNS configurado com Round-Robin
+● DNS Round-Robin
 
-Arquivo db.meutrabalho.com.br apontando para 3 servidores diferentes
+● Três servidores distintos apontando para o mesmo domínio
+➥ serverA, serverB, serverC
 
-## 📂 Estrutura de Pastas
-backendA / backendB / backendC
-│ src
-│   ├ config
-│   │   ├ db.js
-│   │   └ redis.js
-│   ├ controllers
-│   │   ├ authController.js
-│   │   └ profileController.js
-│   ├ middlewares
-│   │   ├ authMiddleware.js
-│   │   └ sessionMiddleware.js
-│   ├ services
-│   │   ├ userService.js
-│   │   └ sessionService.js
-│   ├ utils
-│   │   └ hash.js
-│   ├ server.js
-│   └ routes.js
-│ .env
+## Estrutura de Pastas:
 
-frontend (design)
-│ src
-│   ├ assets
-│   ├ api.js
-│   ├ App.jsx
-│   ├ main.jsx
-│   └ pages
-│       ├ auth
-│       └ home
+ServerX (serverA, serverB, serverC):
+  ● .env
+  ➜ src
+      ➜ config
+          ● db.js
+          ● redis.js
+      ➜ controllers
+          ● authController.js
+          ● profileController.js
+      ➜ middlewares
+          ● authMiddleware.js
+          ● sessionMiddleware.js
+      ➜ services
+          ● userService.js
+          ● sessionService.js
+      ➜ utils
+          ● hash.js
+      ● routes.js
+      ● server.js
 
-## 🗄️ Banco de Dados (MySQL)
-Estrutura:
+frontend (design):
+  ➜ src
+      ➜ assets (imagens...)
+      ● api.js
+      ● App.jsx
+      ● main.jsx
+      ➜ pages
+          ➜ auth
+          ➜ home
+
+infra (in):
+  ➜ db
+    ● init.sql
+  ➜ session
+      ● serverA.env
+      ● serverB.env
+      ● serverC.env
+
+## Banco de Dados (MySQL workbench):
+
+### Estrutura
+
 CREATE TABLE usuarios (
   id INT AUTO_INCREMENT PRIMARY KEY,
   login VARCHAR(50) UNIQUE NOT NULL,
@@ -87,33 +98,32 @@ CREATE TABLE usuarios (
   nome VARCHAR(100) NOT NULL
 );
 
-Inserção de usuários:
+### Inserção inicial
+
 INSERT INTO usuarios (login, senha_hash, nome)
 VALUES
 ('pedro', '<hash bcrypt>', 'Pedro'),
-('admin', '<hash bcrypt>', 'Administrador');
+('davi', '<hash bcrypt>', 'Administrador');
 
-## 🔐 Fluxo de Login
+## Fluxo de Login:
 
-O usuário envia login e senha para o backend.
+1. Frontend envia login e senha
 
-O backend valida o login no MySQL.
+2. Backend consulta MySQL
 
-A senha é comparada via bcrypt.compare().
+3. Senha validada com bcrypt.compare()
 
-Caso válido:
+Se válido:
 
-Cria sessão no Redis.
+4. Sessão criada no Redis
 
-Retorna sessionId.
+5. Backend retorna sessionId
 
-O frontend salva o sessionId no localStorage.
+6.Frontend armazena sessionId
 
-As próximas requisições enviam x-session-id no header.
+7. Requisições seguintes usam x-session-id
 
-## 🧠 Sessões com Redis
-
-Cada sessão no Redis contém:
+## Sessões com Redis:
 
 {
   "id": "abc123",
@@ -122,37 +132,13 @@ Cada sessão no Redis contém:
   "logadoEm": "2025-11-21T00:12:00.000Z"
 }
 
-
-Expira automaticamente em 1 hora.
-
-## 🌐 DNS (Round-Robin)
-
-Arquivo db.meutrabalho.com.br:
+## DNS (Round-Robin):
 
 www     IN A 10.0.0.11
 www     IN A 10.0.0.12
 www     IN A 10.0.0.13
 
-
-Cada nova requisição pode cair em um servidor diferente:
-
-backendA (serverA)
-
-backendB (serverB)
-
-backendC (serverC)
-
-O endpoint /meu-perfil informa qual servidor respondeu:
-
-{
-  "usuario": "Pedro",
-  "logadoEm": "...",
-  "servidor": "serverB"
-}
-
-## 🖥️ Frontend (React)
-
-O frontend possui fallback automático:
+## Frontend (React):
 
 api.js
 export const API_URLS = [
@@ -168,39 +154,34 @@ export async function apiFetch(path, options = {}) {
       if (res.ok) return res;
     } catch (_) {}
   }
-  
   throw new Error("Nenhum servidor disponível");
 }
 
-✔ Se o servidor C cair → tenta o B
-✔ Se o B cair → tenta o A
-✔ Se todos caem → aparece erro de conexão
-🏠 Tela inicial (Home)
+## Como Executar:
 
-Exibe:
-
-usuário logado
-
-horário do login
-
-sessão usada
-
-servidor que atendeu a requisição
-
-tudo vindo da API distribuída
-
-## 🚀 Como Executar
-
-🔧 1) Subir MySQL
+1) MySQL
 
 Criar banco trabalho
+
 Executar init.sql
 
-🔧 2) Subir Redis
+2) Redis
 
-Porta padrão: 6379
+Porta: 6379
 
-🔧 3) Iniciar cada backend
+3) Backends
+cd backendA && npm run dev
+cd backendB && npm run dev
+cd backendC && npm run dev
+
+4) Frontend (modo dev)
+cd design
+npm run dev
+
+# Scripts:
+
+### Abrir 3 terminais e rodar cada bloco de comando a seguir:
+
 cd backendA
 npm run dev
 
@@ -210,26 +191,32 @@ npm run dev
 cd backendC
 npm run dev
 
-🔧 4) Iniciar o frontend
-cd design
-npm run dev
+### em um novo terminal, na pasta design:
 
-## 🎉 Status Final do Projeto
+npm run build
+npm install -g serve
+serve -s dist -l 80
 
-✔ Login funcionando
+Vai rodar em:
 
-✔ Hash de senha
+1. http://localhost
+          ou
+2. http://www.meutrabalho.com.br
 
-✔ Sessões distribuídas
+## Status Final do Projeto:
 
-✔ Redis funcional
+● Login funcionando
 
-✔ MySQL funcional
+● Hash seguro
 
-✔ DNS configurado
+● Sessões distribuídas
 
-✔ Frontend com fallback
+● Redis ok
 
-✔ Três servidores independentes
+● MySQL ok
 
-✔ Projeto completamente funcional
+● DNS configurado
+
+● Frontend com fallback
+
+● Três servidores funcionando

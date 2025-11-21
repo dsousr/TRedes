@@ -4,7 +4,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
 }
 
 .user-icon{
@@ -88,23 +87,4 @@
 
 .auth-form button:hover{
     background-color: var(---bg--color-two);
-}
-
-/*Botões*/
-.nav-btn{
-    cursor: pointer;
-    font-weight: 800;
-    letter-spacing: 1px;
-    width: 400px;
-    padding: 15px 0;
-    border: none;
-    border-bottom-left-radius: 2rem;
-    border-bottom-right-radius: 2rem;
-    background-color: rgb(225, 225, 255);
-    transition: .4s ease-in-out;   
-}
-
-.nav-btn:hover{
-    background-color: rgb(180, 180, 255);
-    width: 450px;
 }
