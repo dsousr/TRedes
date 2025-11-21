@@ -1,97 +1,70 @@
 import { useEffect, useState } from "react";
 import "./Home.css";
 
-// Importando ícones
+import { apiFetch } from "../../api";
+
+// Icons
 import User from "../../assets/icons/user.png";
 import Id from "../../assets/icons/id.png";
 import Clock from "../../assets/icons/clock.png";
 import Server from "../../assets/icons/server.png";
 
-import { API_URL } from "../../api";
-
 export default function Home() {
-
   const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-
     async function loadProfile() {
-      const sessionId = localStorage.getItem("sessionId");
-
-      if (!sessionId) {
-        setLoading(false);
-        return;
-      }
-
       try {
-        const res = await fetch(`${API_URL}/meu-perfil`, {
+        const sessionId = localStorage.getItem("sessionId");
+
+        const res = await apiFetch("/meu-perfil", {
+          method: "GET",
           headers: {
             "x-session-id": sessionId
           }
         });
 
         const data = await res.json();
-
-        if (res.ok) {
-          setProfile({
-            name: data.usuario,
-            loginTime: data.logadoEm,
-            hostname: data.servidor,
-            sessionId: data.sessionId
-          });
-        } else {
-          alert("Sessão expirada ou inválida");
-        }
+        setProfile(data);
 
       } catch (err) {
-        alert("Erro ao conectar ao servidor");
+        alert("Erro ao carregar perfil.");
       }
-
-      setLoading(false);
     }
 
     loadProfile();
-
   }, []);
 
-  if (loading) return <h2>Carregando...</h2>;
-  if (!profile) return <h2>Não foi possível carregar o perfil</h2>;
+  if (!profile) return <h2>Carregando...</h2>;
 
   return (
     <section className="home">
-
       <main className="main-home">
 
-        {/* Nome do usuário */}
         <div className="user-infs">
           <img src={User} alt="usuário" />
-          <h2>{profile.name}</h2>
-          <span className="user-id">@{profile.name}</span>
+          <h2>{profile.usuario}</h2>
+          <span className="user-id">@{profile.login}</span>
         </div>
 
-        {/* Data e hora do login */}
         <div className="date-time">
           <img src={Clock} alt="relógio" />
           <span className="d-t">
-            Data e hora do login: {profile.loginTime}
+            Data e hora de login: {profile.logadoEm}
           </span>
         </div>
 
-        {/* Hostname do servidor */}
         <div className="host-name">
           <img src={Server} alt="servidor" />
-          <span>Host name: {profile.hostname}</span>
+          <span>Host name: {profile.servidor}</span>
         </div>
 
-        {/* ID da sessão */}
         <div className="id-login">
           <img src={Id} alt="id" />
           <span>Id de login: {profile.sessionId}</span>
         </div>
 
       </main>
-
     </section>
   );
 }

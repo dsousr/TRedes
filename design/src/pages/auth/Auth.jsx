@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './Auth.css';
 
-import { API_URL } from "../../api";
+import { apiFetch } from "../../api";   // <-- IMPORTAÇÃO CERTA
 
 // Icons
 import User from '../../assets/icons/user.png';
@@ -49,9 +49,9 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await fetch(`${API_URL}/login`, {
+      const res = await apiFetch("/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({ login, senha })
       });
 
@@ -65,7 +65,6 @@ function Login() {
       // salva sessão
       localStorage.setItem("sessionId", data.sessionId);
 
-      // vai pra home
       navigate("/home");
 
     } catch (err) {
@@ -110,7 +109,6 @@ function Login() {
 
 function Register() {
 
-  // (Opcional — não usado na apresentação)
   const [nome, setNome] = useState("");
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
