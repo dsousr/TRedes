@@ -1,0 +1,8 @@
+Instalar Redis:
+sudo apt install redis-server
+
+Habilitar:
+sudo systemctl enable redis-server
+
+Iniciar:
+sudo systemctl start redis-server

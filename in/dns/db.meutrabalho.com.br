@@ -1,0 +1,13 @@
+$TTL 60
+@   IN  SOA dns.meutrabalho.com.br. admin.meutrabalho.com.br. (
+        20250101 ; serial
+        3600
+        1800
+        604800
+        60
+)
+@       IN NS dns.meutrabalho.com.br.
+
+www     IN A 10.0.0.11
+www     IN A 10.0.0.12
+www     IN A 10.0.0.13
