@@ -49,21 +49,25 @@ Abra 4 terminais e execute em cada um deles os seguintes blocos de código:
 ➜ Terminal 1 – Server A
 cd serverA
 npm install
+npm install express mysql2 ioredis bcryptjs dotenv cors
 npm run dev
 
 ➜ Terminal 2 – Server B
 cd serverB
 npm install
+npm install express mysql2 ioredis bcryptjs dotenv cors
 npm run dev
 
 ➜ Terminal 3 – Server C
 cd serverC
 npm install
+npm install express mysql2 ioredis bcryptjs dotenv cors
 npm run dev
 
 ➜ Terminal 4 – Frontend (design)
 cd design
 npm install
+npm i react-router-dom
 npm run build
 npm install -g serve
 serve -s dist -l 80
