@@ -36,9 +36,9 @@ Passo 2:
 
 5. Copie e coloque na ultima linha:
 
-  127.0.0.1   www.meutrabalho.com.br
-  127.0.0.1   www.meutrabalho.com.br
-  127.0.0.1   www.meutrabalho.com.br
+192.168.0.101    www.meutrabalho.com.br
+192.168.0.102    www.meutrabalho.com.br
+192.168.0.103    www.meutrabalho.com.br
 
 6. Salve.
 
