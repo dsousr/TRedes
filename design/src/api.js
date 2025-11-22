@@ -1,7 +1,7 @@
 export const API_URLS = [
-  "http://localhost:3001",
-  "http://localhost:3002",
-  "http://localhost:3003"
+  "http://www.meutrabalho.com.br:3001",
+  "http://www.meutrabalho.com.br:3002",
+  "http://www.meutrabalho.com.br:3003"
 ];
 
 let currentServer = 0;

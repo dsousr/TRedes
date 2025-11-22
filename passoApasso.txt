@@ -1,3 +1,9 @@
+Passo 0: Iniciar o Redis
+
+➜ na raiz cole:
+
+redis-server
+
 Passo 1 – Banco de Dados (MySQL Workbench)
 
 ➜ Cole:
@@ -72,6 +78,10 @@ npm run build
 npm install -g serve
 serve -s dist -l 80
 
-7. Feche o navegador, abra novamente e acesse:
+Passo 7: No Powershell
+
+ipconfig /flushdns
+
+Passo 8: Feche o navegador, abra novamente e acesse:
 
 http://www.meutrabalho.com.br

@@ -138,13 +138,25 @@ www     IN A 10.0.0.11
 www     IN A 10.0.0.12
 www     IN A 10.0.0.13
 
+## No windows, executar o bloco de notas como adm:
+
+abrir o arquivo hosts no caminho (se não aparecer hosts, troque 'documentos de txt' por 'todos os arquivos' ):
+
+➜ C:\Windows\System32\drivers\etc\hosts
+
+e adicionar ao final do hosts:
+
+10.0.0.11   www.meutrabalho.com.br
+10.0.0.12   www.meutrabalho.com.br
+10.0.0.13   www.meutrabalho.com.br
+
 ## Frontend (React):
 
 api.js
 export const API_URLS = [
-  "http://localhost:3003",
-  "http://localhost:3002",
-  "http://localhost:3001"
+  "http://www.meutrabalho.com.br:3001",
+  "http://www.meutrabalho.com.br:3002",
+  "http://www.meutrabalho.com.br:3003"
 ];
 
 export async function apiFetch(path, options = {}) {
@@ -159,22 +171,26 @@ export async function apiFetch(path, options = {}) {
 
 ## Como Executar:
 
-1) MySQL
+0. No powershell: 
+
+ipconfig /flushdns
+
+1. MySQL workbench (Arquivo passoApasso.txt)
 
 Criar banco trabalho
 
 Executar init.sql
 
-2) Redis
+2. Redis
 
 Porta: 6379
 
-3) Backends
+3. Backends
 cd backendA && npm run dev
 cd backendB && npm run dev
 cd backendC && npm run dev
 
-4) Frontend (modo dev)
+4. Frontend
 cd design
 npm run dev
 
@@ -220,3 +236,7 @@ Vai rodar em:
 ● Frontend com fallback
 
 ● Três servidores funcionando
+
+## Conclusão
+
+O projeto implementa uma aplicação distribuída completa, utilizando três servidores backend balanceados por DNS Round Robin, um frontend em React e um servidor Redis responsável pela centralização de sessões. A autenticação permanece consistente mesmo quando o cliente é redirecionado entre diferentes instâncias do backend, demonstrando na prática o problema de gerenciamento de estado em sistemas distribuídos e sua solução.
