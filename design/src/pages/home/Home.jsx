@@ -30,7 +30,9 @@ export default function Home() {
 
       } catch (err) {
         console.log("Erro ao carregar perfil.");
+        setProfile(null);
       }
+
     }
 
     loadProfile();
@@ -40,7 +42,7 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  if (!profile) return <h2>Carregando...</h2>;
+if (!profile) return <h2>Conectando ao servidor...</h2>;
 
   return (
     <section className="home">

@@ -5,7 +5,6 @@ import cors from "cors";
 
 const app = express();
 app.use(cors());
-
 app.use(express.json());
 app.use(sessionMiddleware);
 
@@ -18,8 +17,8 @@ app.get("/health", (req, res) => {
 app.use(routes);
 
 const PORT = process.env.PORT || 3000;
-const IP = process.env.IP || "0.0.0.0";
 
-app.listen(PORT, IP, () => {
-  console.log(`Servidor ${process.env.HOSTNAME} rodando em ${IP}:${PORT}`);
+// Escutando em TODAS as interfaces
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Servidor ${process.env.HOSTNAME} rodando na porta ${PORT}`);
 });
