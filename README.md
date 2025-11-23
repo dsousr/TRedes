@@ -1,4 +1,4 @@
-# Sistema de Autenticação Distribuído com Balanceamento de Carga
+# Sistema de Autenticação Distribuído com Balanceamento de Carga (BitBalance)
 
 ## Descrição do Projeto:
 
@@ -103,7 +103,15 @@ CREATE TABLE usuarios (
 INSERT INTO usuarios (login, senha_hash, nome)
 VALUES
 ('pedro', '<hash bcrypt>', 'Pedro'),
-('davi', '<hash bcrypt>', 'Administrador');
+('davi', '<hash bcrypt>', 'Davi');
+
+## Como criar senha hash?
+
+● No arquivo: in/gerarhash execute:
+
+➜ node gerar-hash.js
+
+obs: alterar pela senha desejada a constante 'senha'
 
 ## Fluxo de Login:
 
@@ -150,32 +158,13 @@ e adicionar ao final do hosts:
 10.0.0.12   www.meutrabalho.com.br
 10.0.0.13   www.meutrabalho.com.br
 
-## Frontend (React):
+## Como Executar (Arquivo passoApasso.txt):
 
-api.js
-export const API_URLS = [
-  "http://www.meutrabalho.com.br:3001",
-  "http://www.meutrabalho.com.br:3002",
-  "http://www.meutrabalho.com.br:3003"
-];
-
-export async function apiFetch(path, options = {}) {
-  for (const base of API_URLS) {
-    try {
-      const res = await fetch(base + path, options);
-      if (res.ok) return res;
-    } catch (_) {}
-  }
-  throw new Error("Nenhum servidor disponível");
-}
-
-## Como Executar:
-
-0. No powershell: 
+0. No Powershell: 
 
 ipconfig /flushdns
 
-1. MySQL workbench (Arquivo passoApasso.txt)
+1. MySQL workbench
 
 Criar banco trabalho
 
@@ -207,7 +196,7 @@ npm run dev
 cd backendC
 npm run dev
 
-### em um novo terminal, na pasta design:
+### Em um novo terminal, na pasta design:
 
 npm run build
 npm install -g serve
